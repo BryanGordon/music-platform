@@ -22,14 +22,14 @@ const { title } = Astro.props;
 		<div id="app" class="relative h-screen p-2 gap-2">
 			<aside class="[grid-area:aside] flex-col flex overflow-y-auto">
 				<AsideMenu />
+			
+				<main class="[grid-area:main] rounded-lg bg-zinc-900 overflow-y-auto">
+					<slot />
+				</main>
 			</aside>
-			<main class="[grid-area:main] rounded-lg bg-zinc-900 overflow-y-auto">
-
-			</main>
 			<footer class="[grid-area:player] min-h-[100px]:">
 
 			</footer>
-			<slot />
 		</div>
 	</body>
 </html>
@@ -43,19 +43,46 @@ const { title } = Astro.props;
 		grid-template-rows: 1fr auto;
 	}
 </style>
+
 <style is:global>
 	html {
-		font-family: system-ui, sans-serif;
-		background: #000;
+		font-family: "Lato", system-ui, sans-serif;
+		background: #010101;
+		color: white;
 	}
-</style>
 
-{/* To do 
-- Crear los archivos para los iconos y modificarlos
-	- Home
-	- Library
-	- Pause
-	- Play
-	- Search
-	- Time
-*/}
+	@font-face {
+		font-family: "Lato";
+		src: url("/public/font/Lato-Black.ttf") format("ttf");
+		font-weight: 900;
+		font-style: normal;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: "Lato";
+		src: url("/public/font/Lato-Bold.ttf") format("ttf");
+		font-weight: 700;
+		font-style: normal;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: "Lato";
+		src: url("/public/font/Lato-Light.ttf") format("ttf");
+		font-weight: 300;
+		font-style: normal;
+		font-display: swap;
+	}
+
+	@font-face {
+		font-family: "Lato";
+		src: url("/public/font/Lato-Regular.ttf") format("ttf");
+		font-weight: 400;
+		font-style: normal;
+		font-display: swap;
+	}
+
+
+
+</style>
