@@ -1,4 +1,7 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState, useRef } from 'react'
+import { Pause } from '#@/icons/Pause.jsx'
+import { Play } from '#@/icons/Play.jsx'
+
 /* Añadir una ternaria en la parte de isplaying (dentro del boton), 
 colocando los iconos de pause y play */
 /*Crear todos los iconos del player*/
@@ -31,10 +34,10 @@ export function Player () {
       <div className="grid place-content-center gap-4 flex-1">
         <div className="flex justify-center">
           <button 
-            className="bg-white rounded-full p-5"
+            className="bg-white rounded-full p-3"
             onClick={handleClick}
           >
-            {isPlaying}
+            {isPlaying ? <Pause /> : <Play />}
           </button>
         </div>
       </div>
