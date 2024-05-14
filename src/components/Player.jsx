@@ -1,34 +1,53 @@
 import { useEffect, useState, useRef } from 'react'
 import { Pause } from '#@/icons/Pause.jsx'
 import { Play } from '#@/icons/Play.jsx'
+import { usePlayerStore } from '#@/store/playerStore.js'
 
-/* Añadir una ternaria en la parte de isplaying (dentro del boton), 
-colocando los iconos de pause y play */
-/*Crear todos los iconos del player*/
+const CurrentSong = ({ image, title, artists }) => {
+  return (
+    <div className={`flex items-center gap-5 relative overflow-hidden`}>
+      
+      <picture className='w-16 h-16 bg-zinc-800 rounded-md shadow-lg overflow-hidden'>
+        <img src={image} alt={title} />
+      </picture>
+
+      <div className='flex flex-col'>
+        <h3 className='font-semibold text-sm block'>{title}</h3>
+        <span className='text-xs opacity-80'>
+          {artists?.join(', ')}
+        </span>
+      </div>
+    </div>
+  )
+}
 
 export function Player () {
-  const [isPlaying, setIsPlaying] = useState(false)
-  const [currentSong, setCurrentSong] = useState(null)
+  const { isPlaying, currentMusic, setIsPlaying } = usePlayerStore(state => state)
   const audioRef = useRef()
 
   const handleClick = () => {
-    if (isPlaying) {
-      audioRef.current.pause()
-    } else {
-      audioRef.current.play()
-    }
-
     setIsPlaying(!isPlaying)
   }
 
-  useEffect(() => {
-    audioRef.current.src = `/music/1/01.mp3`
-  }, [])
+  useEffect (() => {
+    isPlaying
+      ? audioRef.current.play()
+      : audioRef.current.pause()
+  }, [isPlaying])
+
+  useEffect (() => {
+    const { song, playlist, songs } = currentMusic
+    if (song) {
+      const src = `/music/${playlist?.id}/0${song.id}.mp3`
+      audioRef.current.src = src
+      audioRef.current.play()
+    }
+  }, [currentMusic])
 
   return (
     <div className="flex flex-row justify-between w-full px-4 z-50">
-      <div className="">
-        current song...
+      <div>
+        <CurrentSong {... currentMusic.song}/>
       </div>
 
       <div className="grid place-content-center gap-4 flex-1">
