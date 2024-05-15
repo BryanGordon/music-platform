@@ -1,8 +1,11 @@
 import { useEffect, useState, useRef } from 'react'
 import { Pause } from '#@/icons/Pause'
 import { Play } from '#@/icons/Play'
+import { VolumeMute } from '#@/icons/VolumeMute'
+import { VolumeHigh } from '#@/icons/VolumeHigh'
 import { usePlayerStore } from '#@/store/playerStore'
 import { Slider } from './Slider'
+
 
 const CurrentSong = ({ image, title, artists }) => {
   return (
@@ -18,6 +21,30 @@ const CurrentSong = ({ image, title, artists }) => {
           {artists?.join(', ')}
         </span>
       </div>
+    </div>
+  )
+}
+
+const VolumenControl = () => {
+  const volume = usePlayerStore(state => state.volume)
+  const setVolume = usePlayerStore(state => state.setVolume)
+
+  return (
+    <div className='flex justify-center gap-x-2'>
+      {
+        volume < 0.1 ? <VolumeMute /> : <VolumeHigh />
+      }
+      <Slider 
+        defaultValue={[100]}
+        max={100}
+        min={0}
+        className='w-[100px]'
+        onValueChange={(value) => {
+          const [newVolume] = value
+          const volumeValue = newVolume / 100
+          setVolume(volumeValue)
+        }}
+      />
     </div>
   )
 }
@@ -63,16 +90,7 @@ export function Player () {
       </div>
 
       <div className="grid place-content-center">
-        <Slider 
-          defaultValue={[100]}
-          max={100}
-          min={0}
-          className='w-[105px]'
-          onValueChange={(value) => {
-            const [newVolume] = value
-            audioRef.current.volume = newVolume / 100
-          }}
-        />
+        <VolumenControl />
       </div>
 
     <audio ref={audioRef} />
