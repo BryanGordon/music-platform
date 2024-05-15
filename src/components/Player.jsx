@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react'
-import { Pause } from '#@/icons/Pause.jsx'
-import { Play } from '#@/icons/Play.jsx'
-import { usePlayerStore } from '#@/store/playerStore.js'
+import { Pause } from '#@/icons/Pause'
+import { Play } from '#@/icons/Play'
+import { usePlayerStore } from '#@/store/playerStore'
 import { Slider } from './Slider'
 
 const CurrentSong = ({ image, title, artists }) => {
