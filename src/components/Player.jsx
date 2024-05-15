@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react'
 import { Pause } from '#@/icons/Pause.jsx'
 import { Play } from '#@/icons/Play.jsx'
 import { usePlayerStore } from '#@/store/playerStore.js'
+import { Slider } from './Slider'
 
 const CurrentSong = ({ image, title, artists }) => {
   return (
@@ -62,7 +63,16 @@ export function Player () {
       </div>
 
       <div className="grid place-content-center">
-        volumen
+        <Slider 
+          defaultValue={[100]}
+          max={100}
+          min={0}
+          className='w-[105px]'
+          onValueChange={(value) => {
+            const [newVolume] = value
+            audioRef.current.volume = newVolume / 100
+          }}
+        />
       </div>
 
     <audio ref={audioRef} />
