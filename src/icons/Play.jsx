@@ -1,6 +1,7 @@
-export function Play () {
+export function Play ({ className }) {
   return (
-    <svg  
+    <svg
+      className={className}  
       width="24"  
       height="24"  
       viewBox="0 0 24 24"  
